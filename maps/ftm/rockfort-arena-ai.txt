@@ -1,0 +1,44 @@
+
+StepStandard - index, "unit1", number, x, y
+StepChoice - index, "unit1", and/or, "unit2", and/or "unit3", x, y
+StepAction - "action", var1, var2, unit, fromx, fromy
+	action = wait, gold, wood, oil, move, attack
+
+3x3 Group Grid
+Air Grid
+
+Blue Build Order
+
+Peasant - door corner
+Ranger - door corner
+Catapult
+Paladin - door corner
+Bird
+Mage
+Mage
+Hero Horseman
+
+-- Move Peasant
+
+-- Build the following, whatever the Ai can build first.
+
+Hero Footman
+Bird
+Bird
+Hero Archer
+Mage
+
+-- Move Ranger and Paladin
+
+Hero
+Hero
+
+-- Once build order complete, construct:
+
+Standard, Fodder
+
+-- Once a decent force build, attack with Standard, Fodder, Paladin, and Ranger.
+
+-- Repeat attack force building.
+
+

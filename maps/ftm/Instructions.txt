@@ -1,0 +1,7 @@
+1. Make sure pre-placed siege units cannot move for any reason.
+
+2. Give those pre-placed siege units AA capability.
+
+3. Don't have AI build buildings in this map, it's too crowded as is.
+
+4. Have units spawn out of their respective buildings.

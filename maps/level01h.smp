@@ -1,0 +1,2 @@
+DefinePlayerTypes("person","nobody","nobody","computer","nobody","nobody","computer")
+PresentMap("1st Level Mythic Campaign", 3, 128, 128, 1)
