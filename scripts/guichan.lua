@@ -1647,7 +1647,9 @@ function GameStarting()
 	end
 end
 
-if (Editor.Running == EditorCommandLine) then
+if (CustomStartup) then
+  CustomStartup()
+elseif (Editor.Running == EditorCommandLine) then
   if (CliMapName and CliMapName ~= "") then
     StartEditor(CliMapName)
   else

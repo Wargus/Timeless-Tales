@@ -44,11 +44,13 @@ function int2bool(int)
   end
 end
 
-function ErrorMenu(errmsg)
+function ErrorMenu(errmsg, optNoDrawUnder)
   local menu = WarMenu(nil, panel(4), false)
   menu:setSize(288, 128)
   menu:setPosition((Video.Width - 288) / 2, (Video.Height - 128) / 2)
-  menu:setDrawMenusUnder(true)
+  if (not optNoDrawUnder) then
+    menu:setDrawMenusUnder(true)
+  end
 
   menu:addLabel("Error:", 144, 11)
 
@@ -113,7 +115,7 @@ function addPlayersList(menu, numplayers)
 end
 
 
-function RunJoiningMapMenu(s)
+function RunJoiningMapMenu(optRace, optReady)
   local menu
   local listener
   local sx = Video.Width / 20
@@ -142,12 +144,21 @@ function RunJoiningMapMenu(s)
   revealmap:setEnabled(false)
 
   menu:writeText(_("~<Your Race:~>"), sx, sy*11)
-  local race = menu:addDropDown({_("Map Default"), _("Orc"), _("Human")}, sx + 100, sy*11, function(dd) end)
-  race:setActionCallback(function(dd)
-      GameSettings.Presets[NetLocalHostsSlot].Race = race:getSelected()
-      LocalSetupState.Race[NetLocalHostsSlot] = race:getSelected()
-    end)
+  local race
+  local function raceCb(dd)
+    GameSettings.Presets[NetLocalHostsSlot].Race = race:getSelected()
+    LocalSetupState.Race[NetLocalHostsSlot] = race:getSelected()
+  end
+  race = menu:addDropDown({_("Map Default"), _("Orc"), _("Human")}, sx + 100, sy*11, raceCb)
+  race:setActionCallback(raceCb)
   race:setSize(190, 20)
+  if (optRace == "orc" or optRace == "Orc") then
+    race:setSelected(1)
+    raceCb(race)
+  elseif (optRace == "human" or optRace == "Human") then
+    race:setSelected(2)
+    raceCb(race)
+  end
 
   menu:writeText(_("Units:"), sx, sy*11+25)
   local units = menu:addDropDown({_("Map Default"), _("One Peasant Only")}, sx + 100, sy*11+25,
@@ -187,7 +198,11 @@ function RunJoiningMapMenu(s)
   local function readycb(dd)
     LocalSetupState.Ready[NetLocalHostsSlot] = bool2int(dd:isMarked())
   end
-  menu:addImageCheckBox(_("~!Ready"), sx*11, sy*14, offi, offi2, oni, oni2, readycb)
+  local ready = menu:addImageCheckBox(_("~!Ready"), sx*11, sy*14, offi, offi2, oni, oni2, readycb)
+  if (optReady) then
+    ready:setMarked(true)
+    readycb(ready)
+  end
 
   local updatePlayersList = addPlayersList(menu, numplayers)
 
@@ -233,11 +248,13 @@ function RunJoiningMapMenu(s)
   menu:run()
 end
 
-function RunJoiningGameMenu(s)
+function RunJoiningGameMenu(optRace, optReady)
   local menu = WarMenu(nil, panel(4), false)
   menu:setSize(288, 128)
   menu:setPosition((Video.Width - 288) / 2, (Video.Height - 128) / 2)
-  menu:setDrawMenusUnder(true)
+  if (not optReady) then
+    menu:setDrawMenusUnder(true)
+  end
 
   menu:addLabel(_("Connecting to server"), 144, 11)
 
@@ -257,25 +274,25 @@ function RunJoiningGameMenu(s)
     -- FIXME: do not use numbers
     if (state == 3) then -- ccs_mapinfo
       -- got ICMMap => load map
-      RunJoiningMapMenu()
+      RunJoiningMapMenu(optRace, optReady)
       menu:stop(0)
     elseif (state == 4) then -- ccs_badmap
-      ErrorMenu(_("Map not available"))
+      ErrorMenu(_("Map not available"), optReady)
       menu:stop(1)
     elseif (state == 10) then -- ccs_unreachable
-      ErrorMenu(_("Cannot reach server"))
+      ErrorMenu(_("Cannot reach server"), optReady)
       menu:stop(1)
     elseif (state == 12) then -- ccs_nofreeslots
-      ErrorMenu(_("Server is full"))
+      ErrorMenu(_("Server is full"), optReady)
       menu:stop(1)
     elseif (state == 13) then -- ccs_serverquits
-      ErrorMenu(_("Server gone"))
+      ErrorMenu(_("Server gone"), optReady)
       menu:stop(1)
     elseif (state == 16) then -- ccs_incompatibleengine
-      ErrorMenu(_("Incompatible engine version"))
+      ErrorMenu(_("Incompatible engine version"), optReady)
       menu:stop(1)
     elseif (state == 17) then -- ccs_incompatiblenetwork
-      ErrorMenu(_("Incompatible network version"))
+      ErrorMenu(_("Incompatible network version"), optReady)
       menu:stop(1)
     end
   end
@@ -384,13 +401,18 @@ function RunAddServerMenu()
   menu:run()
 end
 
-local function RunServerMultiGameMenu(map, description, numplayers)
+function RunServerMultiGameMenu(map, description, numplayers, options)
   local menu
   local sx = Video.Width / 20
   local sy = Video.Height / 20
   local startgame
   local d
 
+  options = options or {fow = 1}
+  local optRace = options.race
+  local optResources = options.resources
+  local optUnits = options.units
+  local optAutostartNum = options.autostartNum
   menu = WarMenu(_("Create MultiPlayer game"))
 
   menu:writeLargeText(_("Map"), sx, sy*3)
@@ -416,57 +438,119 @@ local function RunServerMultiGameMenu(map, description, numplayers)
   local revealmap = menu:addImageCheckBox(_("Reveal map"), sx, sy*3+150, offi, offi2, oni, oni2, revealMapCb)
 
   menu:writeText(_("Race:"), sx, sy*11)
-  local dd = menu:addDropDown({_("Map Default"), _("Orc"), _("Human")}, sx + 100, sy*11, function(dd) end)
-  dd:setActionCallback(
-  function(d)
-      GameSettings.Presets[0].Race = dd:getSelected()
-      ServerSetupState.Race[0] = GameSettings.Presets[0].Race
-      NetworkServerResyncClients()
-    end)
-  dd:setSize(190, 20)
+  local race
+  local function raceCb(d)
+    GameSettings.Presets[0].Race = race:getSelected()
+    ServerSetupState.Race[0] = GameSettings.Presets[0].Race
+    NetworkServerResyncClients()
+  end
+  race = menu:addDropDown({_("Map Default"), _("Orc"), _("Human")}, sx + 100, sy*11, raceCb)
+  race:setActionCallback(raceCb)
+  race:setSize(190, 20)
 
   menu:writeText(_("Units:"), sx, sy*11+25)
-  dd = menu:addDropDown({_("Map Default"), _("One Peasant Only")}, sx + 100, sy*11+25,
-    function(d)
-      GameSettings.NumUnits = dd:getSelected()
-      ServerSetupState.UnitsOption = GameSettings.NumUnits
-      NetworkServerResyncClients()
-    end)
-  dd:setSize(190, 20)
+  local units
+  local function unitsCb(d)
+    GameSettings.NumUnits = units:getSelected()
+    ServerSetupState.UnitsOption = GameSettings.NumUnits
+    NetworkServerResyncClients()
+  end
+  units = menu:addDropDown({_("Map Default"), _("One Peasant Only")}, sx + 100, sy*11+25, unitsCb)
+  units:setSize(190, 20)
 
   menu:writeText(_("Resources:"), sx, sy*11+50)
-  dd = menu:addDropDown({_("Map Default"), _("Low"), _("Medium"), _("High")}, sx + 100, sy*11+50,
-    function(d)
-      GameSettings.Resources = dd:getSelected()
-      ServerSetupState.ResourcesOption = GameSettings.Resources
-      NetworkServerResyncClients()
-    end)
-  dd:setSize(190, 20)
+  local resources
+  local function resourcesCb(d)
+    GameSettings.Resources = resources:getSelected()
+    ServerSetupState.ResourcesOption = GameSettings.Resources
+    NetworkServerResyncClients()
+  end
+  resources = menu:addDropDown({_("Map Default"), _("Low"), _("Medium"), _("High")}, sx + 100, sy*11+50, resourcesCb)
+  resources:setSize(190, 20)
 
   local updatePlayers = addPlayersList(menu, numplayers)
 
   NetworkMapName = map
   NetworkInitServerConnect(numplayers)
+  if (StoreSharedSettingsInBits) then
+    StoreSharedSettingsInBits(ServerSetupState.ServerGameSettings)
+  end
   ServerSetupState.FogOfWar = 1
   ServerSetupState.Opponents = 15
   GameSettings.Opponents = 15
-  local startgame = menu:addFullButton(_("~!Start Game"), "s", sx * 11,  sy*14,
-    function(s)
-      SetFogOfWar(fow:isMarked())
-      if revealmap:isMarked() == true then
-        RevealMap()
-      end
-      NetworkServerStartGame()
-      NetworkGamePrepareGameSettings()
-      RunMap(map)
-      menu:stop()
+  local function startGameCb(s)
+    SetFogOfWar(fow:isMarked())
+    if revealmap:isMarked() == true then
+      RevealMap()
     end
-  )
+    NetworkServerStartGame()
+    NetworkGamePrepareGameSettings()
+    RunMap(map)
+    menu:stop()
+  end
+  local startgame = menu:addFullButton(_("~!Start Game"), "s", sx * 11,  sy*14, startGameCb)
   startgame:setVisible(false)
   local waitingtext = menu:writeText(_("Waiting for players"), sx*11, sy*14)
+  local startIn = -10
   local function updateStartButton(ready)
-    startgame:setVisible(ready)
-    waitingtext:setVisible(not ready)
+    local readyplayers = 1
+    for i=2,PlayerMax do
+      if ServerSetupState.Ready[i-1] == 1 then
+        readyplayers = readyplayers + 1
+      end
+    end
+    if startIn < -1 then
+      startIn = startIn + 1
+    elseif (optRace == "orc" or optRace == "Orc") then
+      race:setSelected(1)
+      raceCb(race)
+      optRace = ""
+    elseif (optRace == "human" or optRace == "Human") then
+      race:setSelected(2)
+      raceCb(race)
+      optRace = ""
+    elseif (optResources == "low" or optResources == "Low") then
+      resources:setSelected(1)
+      resourcesCb(resources)
+      optResources = ""
+    elseif (optResources == "medium" or optResources == "Medium") then
+      resources:setSelected(2)
+      resourcesCb(resources)
+      optResources = ""
+    elseif (optResources == "high" or optResources == "High") then
+      resources:setSelected(3)
+      resourcesCb(resources)
+      optResources = ""
+    elseif (optUnits == "1") then
+      units:setSelected(1)
+      unitsCb(units)
+      optUnits = ""
+    elseif (options.fow == 0) then
+      fow:setMarked(false)
+      fowCb(fow)
+      options.fow = -1
+    elseif (options.revealmap and options.revealmap ~= -1) then
+      revealmap:setMarked(int2bool(options.revealmap))
+      revealMapCb(revealmap)
+      options.revealmap = -1
+    elseif (optAutostartNum) then
+      if (optAutostartNum <= readyplayers) then
+        if (startIn < 0) then
+          startIn = 100
+        else
+          startIn = startIn - 1
+          if (startIn == 0) then
+            startGameCb(startgame)
+          end
+        end
+        startgame:setVisible(true)
+        waitingtext:setVisible(false)
+        startgame:setCaption("Start in " .. startIn / 2)
+      end
+    else
+      startgame:setVisible(ready)
+      waitingtext:setVisible(not ready)
+    end
   end
 
   local listener = LuaActionListener(function(s) updateStartButton(updatePlayers()) end)
@@ -611,4 +695,3 @@ function RunMultiPlayerGameMenu(s)
 
   ExitNetwork1()
 end
-
