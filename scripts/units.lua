@@ -31,7 +31,6 @@ UnitTypeFiles = {}
 
 -- Load the animations for the units.
 Load("scripts/anim.lua")
-Load(Wyrmsun .. "scripts/anim.lua")
 Load(Wyrmsun .. "scripts/civilizations/dwarf/anim.lua")
 Load(Wyrmsun .. "scripts/civilizations/germanic/anim.lua")
 Load(Wyrmsun .. "scripts/civilizations/gnome/anim.lua")

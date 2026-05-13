@@ -503,9 +503,9 @@ DefineAnimations("animations-worker", {
 	Move = UnitMove,
 	Attack = WorkerAttack,
 	Harvest_gold = WorkerMetalMining,
-	Harvest_silver = WorkerMetalMining,
-	Harvest_copper = WorkerMetalMining,
-	Harvest_lumber = WorkerLumberHarvesting,
+	Harvest_ore = WorkerMetalMining,
+	Harvest_coal = WorkerMetalMining,
+	Harvest_wood = WorkerLumberHarvesting,
 	Harvest_stone = WorkerStoneMining,
 	Repair = {
 		"unbreakable begin", "frame 25", "wait 3", "frame 30", "wait 3", "frame 35", "wait 3",

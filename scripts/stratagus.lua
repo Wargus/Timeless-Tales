@@ -175,6 +175,18 @@ SetClickMissile("missile-green-cross")
 
 SetFogOfWarGraphics(Wyrmsun .. "graphics/tilesets/fogofwar.png")
 
+-- Actual only for "enhanced" FOW type
+SetFogOfWarBlur(2.0, 1.5, 3)
+
+-- Actual only for "enhanced" FOW type
+SetFogOfWarEasingSteps(8)
+
+-- Set opacity levels of fog for explored, "known" and hidden tiles.
+SetFogOfWarOpacityLevels(0x7F, 0xBE, 0xFE)
+
+-- Set opacity levels of fog for explored, "known" and hidden tiles in the minimap.
+SetMMFogOfWarOpacityLevels(0x55, 0xAA, 0xFF)
+
 -------------------------------------------------------------------------------
 
 --  Define default resources
@@ -356,7 +368,8 @@ local defaultPreferences = {
 	EnableMouseScrolling = true,    --  Enable/disable mouse scrolling.
 	EnhancedEffects = true,
 	FogOfWar = true,
-	FogOfWarOpacity = 128,
+	FogOfWarBilinear = false,
+	FogOfWarType = "fast",
 	GameSpeed = 30,
 	GameTranslation = "",
 	GrabMouse = false,              --  Enable/disable grabbing the mouse.
@@ -365,7 +378,6 @@ local defaultPreferences = {
 	KeyScrollSpeed = 4,
 	LastDifficulty = 2,
 	LeaveStopScrolling = true,      --  Enable/disable stopping scrolling when mouse leave.
-	MaxOpenGLTexture = 0,
 	MineNotifications = true,
 	MinimapWithTerrain = true,      --  Choose your default for minimap with/without terrain.
 	MouseScrollSpeed = 1,
@@ -441,14 +453,12 @@ SetEffectsEnabled(wc2.preferences.EffectsEnabled)
 SetEffectsVolume(wc2.preferences.EffectsVolume)
 SetFancyBuildings(wc2.preferences.UseFancyBuildings)
 SetFogOfWar(wc2.preferences.FogOfWar)
-SetFogOfWarOpacity(wc2.preferences.FogOfWarOpacity)
 SetGameSpeed(wc2.preferences.GameSpeed)
 SetGroupKeys(wc2.preferences.GroupKeys)
 SetHoldClickDelay(wc2.preferences.HoldClickDelayInMs)
 SetKeyScroll(wc2.preferences.EnableKeyboardScrolling)
 SetLeaveStops(wc2.preferences.LeaveStopScrolling)
 SetLocalPlayerName(wc2.preferences.PlayerName)
-SetMaxOpenGLTexture(wc2.preferences.MaxOpenGLTexture)
 SetMinimapTerrain(wc2.preferences.MinimapWithTerrain)
 SetMouseScroll(wc2.preferences.EnableMouseScrolling)
 SetKeyScrollSpeed(wc2.preferences.KeyScrollSpeed)
@@ -458,7 +468,6 @@ SetMouseScrollSpeedDefault(wc2.preferences.MouseScrollSpeedDefault)
 SetMusicEnabled(wc2.preferences.MusicEnabled)
 SetMusicVolume(wc2.preferences.MusicVolume)
 SetTranslationsFiles(wc2.preferences.StratagusTranslation, wc2.preferences.GameTranslation)
-SetUseOpenGL(wc2.preferences.UseOpenGL)
 SetVideoFullScreen(wc2.preferences.VideoFullScreen)
 SetVideoResolution(wc2.preferences.VideoWidth, wc2.preferences.VideoHeight)
 
@@ -471,6 +480,8 @@ SetSelectionStyle(wc2.preferences.SelectionStyle)
 SetNewViewportMode(wc2.preferences.ViewportMode)
 Preference.DeselectInMine = wc2.preferences.DeselectInMine
 Preference.StereoSound = wc2.preferences.StereoSound
+SetFogOfWarType(wc2.preferences.FogOfWarType)
+SetFogOfWarBilinear(wc2.preferences.FogOfWarBilinear)
 
 --- Uses Stratagus Library path!
 Load("scripts/tales.lua")

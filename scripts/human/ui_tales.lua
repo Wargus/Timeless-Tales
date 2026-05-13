@@ -248,9 +248,6 @@ UI.Resources[3].TextX = Video.Width - 360 + 150 + 18
 UI.Resources[3].TextY = Video.Height + 2 - 16 - 160 + 1
 
 -- Hide Coal (should not show up in normal scenarios)
-if (UI.Resources[6].G) then
-	UI.Resources[6].G = nil
-end
 UI.Resources[6].TextX = -1
 UI.Resources[6].TextY = -1
 
