@@ -412,6 +412,7 @@ function RunServerMultiGameMenu(map, description, numplayers, options)
   local optRace = options.race
   local optResources = options.resources
   local optUnits = options.units
+  local optAiPlayerNum = options.aiPlayerNum or 0
   local optAutostartNum = options.autostartNum
   menu = WarMenu(_("Create MultiPlayer game"))
 
@@ -476,8 +477,8 @@ function RunServerMultiGameMenu(map, description, numplayers, options)
     StoreSharedSettingsInBits(ServerSetupState.ServerGameSettings)
   end
   ServerSetupState.FogOfWar = 1
-  ServerSetupState.Opponents = 15
-  GameSettings.Opponents = 15
+  ServerSetupState.Opponents = optAiPlayerNum
+  GameSettings.Opponents = optAiPlayerNum
   local function startGameCb(s)
     SetFogOfWar(fow:isMarked())
     if revealmap:isMarked() == true then

@@ -23,6 +23,7 @@ local function usage()
   print("\t[fow=(1|0)] -- only valid for server")
   print("\t[units=1] -- only valid for server (1 is for one peasant only)")
   print("\t[resources=(Low|Medium|High)] -- only valid for server")
+  print("\t[aiplayers=[number of computer opponents]] -- only valid for server")
   print("\t[reveal=(0|1)] -- only valid for server")
 end
 
@@ -44,9 +45,14 @@ else
   local units = string.match(ARGS, "units=([^,]+)") or "default"
   local mapfile = string.match(ARGS, "map=([^,]+)")
   local nickname = string.match(ARGS, "player=([^,]+)")
+  local aiPlayerNum = tonumber(string.match(ARGS, "aiplayers=([^,]+)"))
   local numplayers = tonumber(string.match(ARGS, "numplayers=([^,]+)"))
   local fow = tonumber(string.match(ARGS, "fow=([^,]+)"))
   local reveal = tonumber(string.match(ARGS, "reveal=([^,]+)"))
+
+  if (aiPlayerNum == nil) then
+    aiPlayerNum = 0
+  end
 
   if (nickname) then SetLocalPlayerName(nickname) end
 
@@ -94,6 +100,7 @@ else
           autostartNum = numplayers,
           resources = resources,
           units = units,
+          aiPlayerNum = aiPlayerNum,
           fow = fow,
           revealmap = reveal})
     end
