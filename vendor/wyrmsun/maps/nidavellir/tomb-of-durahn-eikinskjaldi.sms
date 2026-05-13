@@ -1,0 +1,158 @@
+-- Stratagus Map Setup
+
+LoadTileModels("scripts/tilesets/dungeon.lua")
+
+RawTiles = {
+	{"Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock"},
+	{"Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Wall",  "Wall",  "Wall",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock"},
+	{"Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Wall",  "Land",  "Wall",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock"},
+	{"Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Wall",  "Wall",  "Wall",  "Door",  "Wall",  "Wall",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock"},
+	{"Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Wall",  "Land",  "Land",  "Land",  "Land",  "Wall",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock"},
+	{"Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Wall",  "Land",  "Wall",  "Wall",  "Land",  "Wall",  "Rock",  "Rock",  "Wall",  "Wall",  "Wall",  "Wall",  "Wall",  "Wall",  "Rock"},
+	{"Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Wall",  "Door",  "Wall",  "Wall",  "Door",  "Wall",  "Wall",  "Wall",  "Wall",  "Land",  "Land",  "Land",  "Land",  "Wall",  "Rock"},
+	{"Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Wall",  "Land",  "Wall",  "Wall",  "Land",  "Land",  "Wall",  "Wall",  "Wall",  "Land",  "Land",  "Wall",  "Wall",  "Wall",  "Rock"},
+	{"Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Wall",  "Land",  "Wall",  "Wall",  "Wall",  "Land",  "Land",  "Wall",  "Wall",  "Door",  "Wall",  "Wall",  "Wall",  "Wall",  "Rock"},
+	{"Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Wall",  "Land",  "Land",  "Land",  "Wall",  "Wall",  "Land",  "Wall",  "Wall",  "Land",  "Wall",  "Land",  "Land",  "Wall",  "Rock"},
+	{"Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Wall",  "Land",  "Wall",  "Wall",  "Land",  "Wall",  "Wall",  "Wall",  "Wall",  "Door",  "Wall",  "Land",  "Land",  "Wall",  "Rock"},
+	{"Rough", "Rock",  "Rock",  "Rock",  "Rock",  "Wall",  "Land",  "Land",  "Wall",  "Door",  "Wall",  "Wall",  "Wall",  "Wall",  "Land",  "Wall",  "Wall",  "Land",  "Wall",  "Rock"},
+	{"Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Land",  "Land",  "Land",  "Land",  "Land",  "Land",  "Land",  "Land",  "Land",  "Land",  "Land",  "Wall",  "Rock"},
+	{"Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Wall",  "Wall",  "Wall",  "Wall",  "Wall",  "Wall",  "Wall",  "Wall",  "Wall",  "Wall",  "Wall",  "Wall",  "Rock"},
+	{"Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock"},
+	{"Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock"},
+	{"Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock"},
+	{"Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock"},
+	{"Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock"},
+	{"Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rough", "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock",  "Rock"}
+}
+
+ApplyRawTiles()
+
+-- Player Setup
+SetStartView(0, 1, 16)
+SetPlayerData(0, "RaceName", "dwarf")
+--SetPlayerData(0, "Faction", "Eikinskjaldi Clan")
+SetPlayerData(0, "Faction", "Norlund Clan")
+SetAiType(0, "land-attack")
+SetStartView(1, 13, 104)
+SetPlayerData(1, "RaceName", "gnome")
+SetPlayerData(1, "Faction", "Untersberg")
+SetPlayerData(1, "Name", "Raiders")
+SetAiType(1, "passive")
+if (IsNetworkGame() and GrandStrategy == false) then
+	SetStartView(2, 1, 16)
+	SetPlayerData(2, "RaceName", "dwarf")
+	--SetPlayerData(2, "Faction", "Eikinskjaldi Clan")
+	SetPlayerData(2, "Faction", "Norlund Clan")
+	SetPlayerData(2, "Name", "Baglur")
+	SetAiType(2, "land-attack")
+	SetDiplomacy(0, "allied", 2)
+	SetDiplomacy(2, "allied", 0)
+	SetDiplomacy(1, "enemy", 2)
+	SetDiplomacy(2, "enemy", 1)
+end
+SetPlayerData(15, "RaceName", "neutral")
+
+unit = CreateUnit("unit-hero-durstorn", 0, {1, 16})
+if (IsNetworkGame() and GrandStrategy == false) then
+	unit = CreateUnit("unit-hero-baglur", 2, {1, 16})
+else
+	unit = CreateUnit("unit-hero-baglur", 0, {1, 16})
+end
+
+if (GameSettings.Difficulty == 1) then -- if difficulty is easy
+	unit = CreateUnit("unit-gnomish-recruit", 1, {8, 9})
+	
+	unit = CreateUnit("unit-gnomish-recruit", 1, {9, 7})
+	unit = CreateUnit("unit-gnomish-recruit", 1, {10, 7})
+
+	unit = CreateUnit("unit-gnomish-recruit", 1, {14, 11})
+
+	unit = CreateUnit("unit-gnomish-recruit", 1, {17, 10})
+	unit = CreateUnit("unit-potion-of-healing", 15, {16, 10})
+
+	unit = CreateUnit("unit-gnomish-recruit", 1, {16, 6}) -- originally Durahn as an undead wight, but since Wyrmsun's universe doesn't have undead, make this a particularly powerful gnomish raider instead
+elseif (GameSettings.Difficulty == 2) then -- if difficulty is normal
+	unit = CreateUnit("unit-gnomish-recruit", 1, {8, 9})
+	--IncreaseUnitLevel(unit, 1, true)
+	unit = CreateUnit("unit-gnomish-recruit", 1, {9, 10})
+	--IncreaseUnitLevel(unit, 1, true)
+	
+	unit = CreateUnit("unit-gnomish-recruit", 1, {9, 7})
+	--IncreaseUnitLevel(unit, 1, true)
+	unit = CreateUnit("unit-gnomish-recruit", 1, {10, 7})
+	--IncreaseUnitLevel(unit, 1, true)
+	unit = CreateUnit("unit-gnomish-recruit", 1, {11, 8})
+	--IncreaseUnitLevel(unit, 1, true)
+	unit = CreateUnit("unit-gnomish-recruit", 1, {11, 9})
+	--IncreaseUnitLevel(unit, 1, true)
+
+	unit = CreateUnit("unit-gnomish-recruit", 1, {14, 11})
+	--IncreaseUnitLevel(unit, 1, true)
+	unit = CreateUnit("unit-gnomish-recruit", 1, {15, 12})
+	--IncreaseUnitLevel(unit, 1, true)
+
+	unit = CreateUnit("unit-gnomish-recruit", 1, {17, 10})
+	--IncreaseUnitLevel(unit, 3, true)
+	IncreaseUnitLevel(unit, 1, true)
+	unit = CreateUnit("unit-potion-of-healing", 15, {16, 10})
+
+	unit = CreateUnit("unit-gnomish-recruit", 1, {16, 6}) -- originally Durahn as an undead wight, but since Wyrmsun's universe doesn't have undead, make this a particularly powerful gnomish raider instead
+	--IncreaseUnitLevel(unit, 2, true)
+	IncreaseUnitLevel(unit, 1, true)
+elseif (GameSettings.Difficulty == 3 or GameSettings.Difficulty == 4) then -- if difficulty is hard or brutal
+	unit = CreateUnit("unit-gnomish-recruit", 1, {8, 9})
+	IncreaseUnitLevel(unit, 1, true)
+	unit = CreateUnit("unit-gnomish-recruit", 1, {9, 10})
+	IncreaseUnitLevel(unit, 1, true)
+	
+	unit = CreateUnit("unit-gnomish-recruit", 1, {9, 7})
+	IncreaseUnitLevel(unit, 1, true)
+	unit = CreateUnit("unit-gnomish-recruit", 1, {10, 7})
+	IncreaseUnitLevel(unit, 1, true)
+	unit = CreateUnit("unit-gnomish-recruit", 1, {11, 8})
+	IncreaseUnitLevel(unit, 1, true)
+	unit = CreateUnit("unit-gnomish-recruit", 1, {11, 9})
+	IncreaseUnitLevel(unit, 1, true)
+
+	unit = CreateUnit("unit-gnomish-recruit", 1, {14, 11})
+	IncreaseUnitLevel(unit, 1, true)
+	unit = CreateUnit("unit-gnomish-recruit", 1, {15, 12})
+	IncreaseUnitLevel(unit, 1, true)
+
+	unit = CreateUnit("unit-gnomish-recruit", 1, {17, 10})
+	if (GameSettings.Difficulty == 3) then
+		IncreaseUnitLevel(unit, 2, true)
+		unit = CreateUnit("unit-potion-of-healing", 15, {16, 10})
+	elseif (GameSettings.Difficulty == 4) then
+		IncreaseUnitLevel(unit, 3, true)
+	end
+
+	unit = CreateUnit("unit-gnomish-recruit", 1, {16, 6}) -- originally Durahn as an undead wight, but since Wyrmsun's universe doesn't have undead, make this a particularly powerful gnomish raider instead
+	IncreaseUnitLevel(unit, 2, true)
+end
+
+unit = CreateUnit("unit-bones", 15, {6, 8})
+unit = CreateUnit("unit-bones", 15, {7, 11})
+unit = CreateUnit("unit-bones", 15, {9, 12})
+unit = CreateUnit("unit-bones", 15, {17, 6}) -- Durahn Eikinskjaldi's sarcophagus
+unit = CreateUnit("unit-bones", 15, {8, 2}) -- Isuldan Eikinskjaldi's remains
+unit = CreateUnit("unit-bones", 15, {17, 9}) -- Gneissus Eikinskjaldi's remains
+
+unit = CreateUnit("unit-table", 15, {16, 9}) -- table in Gneissus' crypt
+SetUnitVariable(unit, "Variation", 7)
+
+unit = CreateUnit("unit-outer-wall-decoration", 15, {11, 7})
+SetUnitVariable(unit, "Variation", 1)
+unit = CreateUnit("unit-outer-wall-decoration", 15, {13, 11})
+SetUnitVariable(unit, "Variation", 1)
+unit = CreateUnit("unit-outer-wall-decoration", 15, {15, 11})
+SetUnitVariable(unit, "Variation", 1)
+
+--unit = CreateUnit("unit-inner-wall-decoration", 15, {8, 7})
+--unit = CreateUnit("unit-inner-wall-decoration", 15, {11, 10})
+
+-- extra potions to make the scenario less difficult
+if (GameSettings.Difficulty ~= 4) then
+	unit = CreateUnit("unit-potion-of-healing", 15, {7, 9})
+	unit = CreateUnit("unit-potion-of-healing", 15, {7, 11})
+end

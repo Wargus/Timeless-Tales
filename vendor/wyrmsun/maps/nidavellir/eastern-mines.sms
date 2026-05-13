@@ -1,0 +1,208 @@
+-- Stratagus Map Setup
+
+LoadTileModels("scripts/tilesets/cave.lua")
+
+CleanRawTiles()
+CleanHexTiles()
+
+HexTiles = {
+	{"",      "",      "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "Rough", "",      "Rough", "",      "Rough", "Rough", "",      "",      ""},
+	{"",      "",      "Mush",  "",      "",      "Mush",  "",      "",      "",      "",      "Rough", "Rough", "",      "",      "",      "",      "",      "",      "Rough", "Rough", "",      "",      "Mush",  "Mush",  "",      "",      "",      "",      "Rough", "",      "Rough", "",      "Mush",  "",      "",      "",      "",      "Mush",  "",      ""},
+	{"",      "",      "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "Mush",  "Rough", "",      "",      "",      "",      "Rough", "Land",  "",      "",      "",      "",      "",      "",      "",      "Water", "",      "",      "",      "",      "",      "Rough"},
+	{"",      "",      "Rough", "",      "",      "Mush",  "",      "Rough", "",      "",      "Mush",  "",      "Mush",  "Rough", "",      "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "Mush",  "",      "",      "",      "",      "Mush",  "",      "",      "Rough", "Water", "Rough", "",      "Rough", "Rough", ""},
+	{"",      "",      "",      "Rough", "",      "Water", "",      "",      "Rough", "Mush",  "",      "",      "Rough", "",      "",      "",      "",      "Rough", "Rough", "",      "",      "",      "",      "",      "Rough", "",      "Mush",  "Land",  "",      "",      "",      "",      "Rough", "",      "Water", "",      "Rough", "",      "",      ""},
+	{"",      "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "Land",  "",      "Rough", "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "Mush",  "",      "Rough", "",      "",      "",      ""},
+	{"",      "",      "",      "",      "",      "Rough", "Mush",  "",      "Land",  "",      "",      "Mush",  "",      "",      "Rough", "Land",  "Land",  "Land",  "",      "Mush",  "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "Land",  "Mush",  "",      "",      "",      "Rough", ""},
+	{"",      "Mush",  "Rough", "",      "",      "Rough", "Mush",  "Rough", "",      "",      "",      "",      "",      "Rough", "",      "Land",  "Rough", "",      "Land",  "Rough", "Mush",  "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "",      ""},
+	{"",      "",      "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "Water", "Water", "",      "Land",  "",      "",      "Land",  "Rough", "",      "",      "",      "Mush",  "",      "",      "",      "Rough", "",      "",      "Rough", "",      "Mush",  "Rough", "",      "",      "Rough", "",      "Rough", "",      ""},
+	{"",      "Rough", "",      "Rough", "",      "",      "",      "Land",  "Rough", "Rough", "Rough", "Water", "Water", "",      "Land",  "Land",  "Mush",  "Rough", "",      "",      "Rough", "Rough", "",      "Water", "Water", "Water", "Mush",  "",      "",      "",      "",      "",      "Rough", "Mush",  "Rough", "",      "Rough", "",      "",      ""},
+	{"",      "",      "",      "",      "Rough", "Rough", "",      "Mush",  "",      "",      "",      "",      "",      "Land",  "Rough", "Land",  "",      "Rough", "",      "",      "",      "",      "Water", "Rough", "Water", "Water", "",      "Rough", "",      "Mush",  "",      "",      "",      "",      "Rough", "Mush",  "",      "",      "",      "Rough"},
+	{"",      "",      "",      "",      "",      "",      "Rough", "Rough", "",      "",      "",      "Rough", "Land",  "",      "Land",  "",      "Rough", "",      "",      "Land",  "Rough", "",      "Rough", "Water", "Water", "Rough", "Water", "",      "",      "",      "Land",  "",      "",      "",      "Rough", "",      "Rough", "",      "",      "Rough"},
+	{"",      "",      "Mush",  "Rough", "",      "Rough", "",      "",      "Mush",  "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "Rough", "",      "",      "Water", "Water", "Mush",  "Rough", "Rough", "Rough", "Rough", "",      "Mush",  "",      "",      "",      "",      "",      "",      "",      "",      ""},
+	{"",      "",      "",      "",      "Rough", "",      "",      "",      "Rough", "Land",  "Land",  "Rough", "",      "Mush",  "Mush",  "",      "",      "",      "Mush",  "",      "",      "",      "",      "",      "Mush",  "",      "",      "Rough", "",      "Rough", "",      "",      "",      "",      "Rough", "",      "Mush",  "",      "",      ""},
+	{"",      "",      "",      "Rough", "",      "Mush",  "",      "Rough", "",      "Land",  "",      "Land",  "",      "",      "Mush",  "",      "",      "",      "Rough", "",      "",      "Rough", "Mush",  "Rough", "Rough", "Rough", "",      "Land",  "",      "",      "",      "Rough", "Rough", "",      "",      "",      "",      "Rough", "Rough", ""},
+	{"",      "",      "",      "Rough", "Rough", "Mush",  "",      "",      "",      "Rough", "Land",  "Land",  "",      "Rough", "Rough", "",      "",      "",      "",      "Rough", "Rough", "Mush",  "",      "Rough", "",      "Rough", "",      "",      "",      "",      "",      "Rough", "Mush",  "",      "Mush",  "",      "",      "",      "",      ""},
+	{"",      "",      "",      "",      "Land",  "",      "",      "",      "",      "",      "",      "Land",  "Land",  "Rough", "",      "Rough", "Rough", "",      "Land",  "",      "Land",  "Land",  "",      "",      "",      "",      "Mush",  "",      "",      "Mush",  "Rough", "",      "",      "Rough", "",      "",      "",      "",      "",      ""},
+	{"",      "",      "",      "Mush",  "",      "",      "",      "",      "Rough", "",      "Rough", "",      "",      "",      "Rough", "",      "",      "Mush",  "",      "",      "",      "Land",  "",      "",      "",      "Mush",  "",      "",      "Rough", "Land",  "Rough", "",      "",      "",      "",      "",      "",      "",      "Rough", ""},
+	{"",      "",      "",      "",      "Rough", "",      "",      "",      "",      "Rough", "Rough", "",      "",      "Mush",  "",      "Rough", "",      "Rough", "",      "Rough", "",      "Land",  "Rough", "",      "",      "",      "",      "",      "Rough", "Rough", "Land",  "Mush",  "",      "",      "",      "",      "",      "",      "Rough", ""},
+	{"",      "",      "Rough", "",      "",      "",      "",      "Rough", "Mush",  "Mush",  "",      "Rough", "Mush",  "Land",  "Rough", "",      "",      "",      "",      "Land",  "Land",  "",      "Rough", "Mush",  "",      "",      "",      "Rough", "Rough", "Land",  "Land",  "",      "",      "Rough", "Rough", "Mush",  "Mush",  "",      "",      ""},
+	{"",      "",      "",      "",      "Mush",  "Land",  "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "Land",  "Rough", "Land",  "",      "Rough", "",      "",      "",      "",      "",      "Land",  "Land",  "",      "",      "",      "",      "Rough", "",      "Rough", "Rough", "",      "",      ""},
+	{"",      "",      "",      "",      "Rough", "",      "Water", "",      "Water", "Water", "",      "Mush",  "Mush",  "Rough", "Rough", "Rough", "",      "",      "Land",  "",      "Rough", "",      "",      "Rough", "Rough", "",      "",      "",      "",      "Water", "Rough", "Water", "",      "Mush",  "",      "",      "",      "Land",  "",      ""},
+	{"",      "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "Water", "Water", "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "Rough", "",      "",      "",      "",      "Water", "Water", "Rough", "",      "",      "",      "",      "",      "",      "",      ""},
+	{"",      "",      "",      "",      "",      "",      "",      "",      "",      "Land",  "",      "Water", "",      "Water", "",      "",      "",      "Rough", "Rough", "",      "Mush",  "Mush",  "Land",  "",      "",      "Mush",  "Rough", "Rough", "Rough", "",      "Rough", "",      "Mush",  "Rough", "",      "",      "",      "",      "Rough", ""},
+	{"",      "",      "Rough", "",      "",      "",      "",      "",      "Rough", "",      "Mush",  "",      "Water", "",      "",      "Rough", "Mush",  "",      "Rough", "",      "",      "",      "",      "Water", "Rough", "Rough", "Rough", "",      "",      "Rough", "Rough", "Land",  "",      "",      "",      "",      "Rough", "Rough", "",      ""},
+	{"",      "",      "",      "Mush",  "",      "",      "Rough", "",      "Rough", "",      "",      "",      "Rough", "",      "Rough", "Rough", "Rough", "",      "Rough", "Mush",  "",      "",      "",      "Water", "",      "",      "",      "Mush",  "",      "Rough", "",      "",      "Land",  "Rough", "Land",  "",      "",      "",      "",      ""},
+	{"",      "",      "",      "",      "Rough", "",      "",      "",      "",      "Land",  "Mush",  "Rough", "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "Water", "",      "",      "Rough", "Mush",  "",      "",      "Land",  "Rough", "",      "Land",  "",      "Rough", "Rough", "",      "",      "Rough", "Rough"},
+	{"",      "Rough", "",      "Rough", "",      "",      "Rough", "",      "Land",  "Land",  "Mush",  "",      "",      "",      "Land",  "",      "Rough", "Rough", "",      "",      "",      "Rough", "Water", "",      "Rough", "Mush",  "",      "",      "",      "",      "",      "Land",  "Land",  "",      "",      "",      "",      "",      "Rough", ""},
+	{"",      "",      "",      "Rough", "",      "",      "",      "",      "",      "Rough", "Land",  "Land",  "",      "",      "",      "Rough", "Mush",  "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "Rough", "Rough", "Rough", "",      "",      "Land",  "",      "Rough", "",      "Rough", "",      "",      "",      ""},
+	{"",      "",      "",      "",      "",      "",      "Mush",  "Rough", "",      "",      "Land",  "Land",  "Rough", "",      "",      "",      "Land",  "Rough", "",      "",      "",      "",      "Land",  "",      "",      "Rough", "Rough", "",      "Rough", "Mush",  "",      "",      "Rough", "",      "Mush",  "",      "Rough", "",      "",      ""},
+	{"",      "",      "Rough", "",      "Rough", "Land",  "",      "",      "",      "Rough", "",      "Land",  "",      "Rough", "Rough", "",      "Mush",  "",      "Rough", "",      "Rough", "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "Rough", "",      ""},
+	{"",      "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "Rough", "Mush",  "",      "Rough", "",      "",      "",      "Rough", "",      "Mush",  "Rough", "",      "Rough", ""},
+	{"",      "",      "",      "",      "",      "Rough", "Rough", "Rough", "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "Rough", "",      "",      "Mush",  "Rough", "Mush",  "Mush",  "Mush",  "Mush",  "Rough", "Land",  "",      "Rough", "Rough", "Land",  "Rough", "Rough", "Rough", "",      "",      "Rough", ""},
+	{"Rough", "",      "",      "",      "Land",  "",      "Rough", "",      "",      "Rough", "Rough", "",      "Mush",  "",      "Rough", "Water", "",      "",      "",      "",      "",      "Rough", "Mush",  "",      "",      "",      "",      "",      "Rough", "",      "Rough", "Rough", "",      "",      "Mush",  "Mush",  "Rough", "",      "",      ""},
+	{"",      "",      "",      "Rough", "",      "",      "Mush",  "",      "",      "",      "Rough", "",      "",      "",      "Rough", "",      "",      "Rough", "",      "Rough", "",      "Rough", "",      "",      "Rough", "Rough", "Rough", "",      "",      "",      "Rough", "Rough", "",      "",      "",      "",      "",      "",      "",      ""},
+	{"",      "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "Rough", "",      "",      "",      "",      "Land",  "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "",      "Rough", "Mush",  "Land",  "",      "",      "Rough", "",      ""},
+	{"",      "",      "Mush",  "",      "",      "",      "Rough", "",      "",      "",      "Rough", "",      "Rough", "Rough", "",      "Mush",  "",      "",      "",      "Rough", "",      "",      "",      "",      "Rough", "Rough", "",      "Rough", "",      "",      "",      "Rough", "",      "Mush",  "",      "",      "Rough", "",      "",      ""},
+	{"",      "",      "",      "Rough", "",      "",      "",      "Rough", "",      "Rough", "Rough", "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "",      "Mush",  "Rough", "",      "Rough", "",      "",      "",      "",      "Rough", "Mush",  "",      "Rough", "Mush",  "",      "",      "",      "",      "Rough"},
+	{"",      "",      "",      "",      "Mush",  "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "Rough", "Rough", "",      "",      "",      "Rough", "",      "",      "Rough", "",      "",      "Mush",  "",      "Rough", "Rough", ""},
+	{"",      "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "",      "Rough", "",      "",      "",      "Rough", "",      "",      "",      "",      "",      "",      "",      "",      "",      ""}
+}
+
+ConvertHexTiles()
+
+SetMapBorders("Rock", false)
+
+GenerateRocks(((Map.Info.MapWidth * Map.Info.MapHeight) / 1024), ((Map.Info.MapWidth * Map.Info.MapHeight) / 8), "", 0, Map.Info.MapWidth, 0, Map.Info.MapHeight)
+
+for x=0,(Map.Info.MapWidth - 1) do
+	for y=0,(Map.Info.MapHeight - 1) do
+		if (RawTile(x, y) == "") then
+			SetRawTile(x, y, "Land")
+		end
+	end
+end
+
+-- convert buildable land tiles adjacent to rock tiles into rough land
+for x=0,(Map.Info.MapWidth - 1) do
+	for y=0,(Map.Info.MapHeight - 1) do
+		if (RawTile(x, y) == "Land" and (RawTile(x, y + 1) == "Rock" or RawTile(x, y - 1) == "Rock" or RawTile(x - 1, y) == "Rock" or RawTile(x + 1, y) == "Rock" or RawTile(x - 1, y - 1) == "Rock" or RawTile(x + 1, y - 1) == "Rock" or RawTile(x - 1, y + 1) == "Rock" or RawTile(x + 1, y + 1) == "Rock")) then
+			SetRawTile(x, y, "Rough")
+		end
+	end
+end
+
+-- Randomly add a few more trees, as the base map has none
+GenerateTrees((Map.Info.MapWidth * Map.Info.MapHeight) / 512, (Map.Info.MapWidth * Map.Info.MapHeight) / 32, 0, Map.Info.MapWidth, 0, Map.Info.MapHeight)
+
+AdjustTransitions(0, Map.Info.MapWidth - 1, 0, Map.Info.MapHeight - 1)
+
+-- rectify hex-conversion derived issues
+SetRawTile(18, 43, "Water")
+SetRawTile(45, 23, "Water")
+SetRawTile(46, 20, "Water")
+SetRawTile(48, 17, "Water")
+
+ApplyRawTiles()
+
+-- Player Setup
+if (CurrentQuest == "The Treasures of Svarinshaug") then
+	SetStartView(0, 59, 53)
+else
+	SetStartView(0, 19, 47)
+end
+SetPlayerData(0, "RaceName", "dwarf")
+SetPlayerData(0, "Resources", "gold", 2000)
+SetPlayerData(0, "Resources", "lumber", 1000)
+SetPlayerData(0, "Resources", "stone", 500)
+SetPlayerData(0, "Resources", "oil", 0)
+SetAiType(0, "land-attack")
+SetStartView(1, 59, 53)
+SetPlayerData(1, "Resources", "gold", 2000)
+SetPlayerData(1, "Resources", "lumber", 1000)
+SetPlayerData(1, "Resources", "stone", 500)
+SetPlayerData(1, "Resources", "oil", 0)
+SetPlayerData(1, "RaceName", "goblin")
+SetAiType(1, "land-attack")
+SetStartView(2, 55, 29)
+SetPlayerData(2, "Resources", "gold", 2000)
+SetPlayerData(2, "Resources", "lumber", 1000)
+SetPlayerData(2, "Resources", "stone", 500)
+SetPlayerData(2, "Resources", "oil", 0)
+SetPlayerData(2, "RaceName", "goblin")
+SetAiType(2, "land-attack")
+SetStartView(3, 35, 17)
+SetPlayerData(3, "Resources", "gold", 2000)
+SetPlayerData(3, "Resources", "lumber", 1000)
+SetPlayerData(3, "Resources", "stone", 500)
+SetPlayerData(3, "Resources", "oil", 0)
+SetPlayerData(3, "RaceName", "goblin")
+SetAiType(3, "land-attack")
+SetPlayerData(15, "RaceName", "neutral")
+
+if (CurrentQuest == "The Treasures of Svarinshaug") then
+	unit = CreateUnit("unit-dwarven-town-hall", 0, {59, 53})
+	unit = CreateUnit("unit-dwarven-miner", 0, {59, 53})
+	unit = CreateUnit("unit-dwarven-miner", 0, {59, 53})
+	unit = CreateUnit("unit-dwarven-miner", 0, {59, 53})
+	unit = CreateUnit("unit-dwarven-miner", 0, {59, 53})
+	unit = CreateUnit("unit-dwarven-miner", 0, {59, 53})
+else
+	unit = CreateUnit("unit-dwarven-town-hall", 0, {19, 47})
+	unit = CreateUnit("unit-dwarven-miner", 0, {19, 47})
+	unit = CreateUnit("unit-dwarven-miner", 0, {19, 47})
+	unit = CreateUnit("unit-dwarven-miner", 0, {19, 47})
+	unit = CreateUnit("unit-dwarven-miner", 0, {19, 47})
+	unit = CreateUnit("unit-dwarven-miner", 0, {19, 47})
+
+	unit = CreateUnit("unit-goblin-town-hall", 1, {59, 53})
+	unit = CreateUnit("unit-goblin-worker", 1, {59, 53})
+	unit = CreateUnit("unit-goblin-worker", 1, {59, 53})
+	unit = CreateUnit("unit-goblin-worker", 1, {59, 53})
+	unit = CreateUnit("unit-goblin-worker", 1, {59, 53})
+	unit = CreateUnit("unit-goblin-worker", 1, {59, 53})
+
+	unit = CreateUnit("unit-goblin-town-hall", 2, {55, 29})
+	unit = CreateUnit("unit-goblin-worker", 2, {55, 29})
+	unit = CreateUnit("unit-goblin-worker", 2, {55, 29})
+	unit = CreateUnit("unit-goblin-worker", 2, {55, 29})
+	unit = CreateUnit("unit-goblin-worker", 2, {55, 29})
+	unit = CreateUnit("unit-goblin-worker", 2, {55, 29})
+
+	unit = CreateUnit("unit-goblin-town-hall", 3, {35, 17})
+	unit = CreateUnit("unit-goblin-worker", 3, {35, 17})
+	unit = CreateUnit("unit-goblin-worker", 3, {35, 17})
+	unit = CreateUnit("unit-goblin-worker", 3, {35, 17})
+	unit = CreateUnit("unit-goblin-worker", 3, {35, 17})
+	unit = CreateUnit("unit-goblin-worker", 3, {35, 17})
+end
+
+if (CurrentQuest == "The Treasures of Svarinshaug") then
+	CreateGoldMines(1, 15000, 0, Map.Info.MapWidth / 2, 0, Map.Info.MapHeight / 2, false)
+	CreateGoldMines(1, 15000, 0, Map.Info.MapWidth / 2, Map.Info.MapHeight / 2, Map.Info.MapHeight - 3, false)
+	CreateGoldMines(1, 5000, Map.Info.MapWidth / 2, Map.Info.MapWidth - 3, Map.Info.MapHeight / 2, Map.Info.MapHeight - 3, false) -- the starting gold mine in the Treasures of Svarinshaug quest is much smaller
+	CreateGoldMines(1, 15000, Map.Info.MapWidth / 2, Map.Info.MapWidth - 3, 0, Map.Info.MapHeight / 2, false)
+else
+	CreateGoldMines(1, 50000, 0, Map.Info.MapWidth / 2, 0, Map.Info.MapHeight / 2, false)
+	CreateGoldMines(1, 50000, 0, Map.Info.MapWidth / 2, Map.Info.MapHeight / 2, Map.Info.MapHeight - 3, false)
+	CreateGoldMines(1, 50000, Map.Info.MapWidth / 2, Map.Info.MapWidth - 3, Map.Info.MapHeight / 2, Map.Info.MapHeight - 3, false)
+	CreateGoldMines(1, 50000, Map.Info.MapWidth / 2, Map.Info.MapWidth - 3, 0, Map.Info.MapHeight / 2, false)
+end
+
+-- create a couple of gold rocks on top of the gold deposits
+local uncount = GetUnits(15)
+for unit1 = 1,table.getn(uncount) do 
+	if (GetUnitVariable(uncount[unit1], "Ident") == "unit-gold-deposit") then
+		for sub_x=0,(GetUnitTypeData("unit-gold-deposit", "TileWidth") - 1) do
+			for sub_y=0,(GetUnitTypeData("unit-gold-deposit", "TileHeight") - 1) do
+				if (SyncRand(100) <= 50) then -- give a chance of a gold rock not being generated, to make the shape of the gold rock group seem more natural
+					unit = CreateUnit("unit-gold-rock", 15, {GetUnitVariable(uncount[unit1], "PosX") + 1, GetUnitVariable(uncount[unit1], "PosY") + 1})
+				end
+			end
+		end
+	end
+end
+
+CreateNeutralBuildings("unit-hole", (Map.Info.MapWidth * Map.Info.MapHeight) / 4096, 0, Map.Info.MapWidth - 2, 0, Map.Info.MapHeight - 2, false)
+local uncount = GetUnits(15)
+for unit1 = 1,table.getn(uncount) do 
+	if (GetUnitVariable(uncount[unit1], "Ident") == "unit-hole") then
+		if (SyncRand(2) == 0) then
+			local RandomNumber = SyncRand(2)
+			if (RandomNumber == 0) then
+				unit = CreateUnitInTransporter("unit-blood-bat", 15, uncount[unit1])
+			elseif (RandomNumber == 1) then
+				unit = CreateUnitInTransporter("unit-dread-bat", 15, uncount[unit1])
+			end
+		end
+	end
+end
+
+CreateCritters((Map.Info.MapWidth * Map.Info.MapHeight) / 512)
+
+-- in a grand strategy battle, give the defender two guard towers if a stronghold is built
+if (GrandStrategy and GrandStrategyEventMap == false and ProvinceHasBuildingClass(AttackedProvince.Name, "stronghold")) then
+	if (GetCivilizationClassUnitType("guard-tower", GetProvinceCivilization(AttackedProvince.Name)) ~= nil) then
+		unit = OldCreateUnit(GetCivilizationClassUnitType("guard-tower", GetProvinceCivilization(AttackedProvince.Name)), MapDefender, {56, 48})
+		unit = OldCreateUnit(GetCivilizationClassUnitType("guard-tower", GetProvinceCivilization(AttackedProvince.Name)), MapDefender, {55, 53})
+	end
+end

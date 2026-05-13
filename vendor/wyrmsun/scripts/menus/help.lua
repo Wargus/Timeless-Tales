@@ -1,0 +1,175 @@
+function RunHelpMenu()
+  local menu = WarGameMenu(panel(1))
+
+  menu:addLabel("Help Menu", 128, 11)
+  menu:addFullButton(_("En~!cyclopedia"), "c", 16, 40 + 36*0,
+    function() RunEncyclopediaMenu() end)
+  menu:addFullButton("~!Hotkeys", "h", 16, 40 + 36*1,
+    function() RunKeystrokeHelpMenu() end)
+--  menu:addFullButton("~!Tips", "t", 16, 40 + 36*1,
+--    function() RunTipsMenu() end)
+  menu:addFullButton("Previous Menu (~<Esc~>)", "escape", 128 - (224 / 2), 248,
+    function() menu:stop() end)
+
+  menu:run(false)
+end
+
+local keystrokes = {
+--  {"Alt-B", "- toggle expand map"},
+  {"Alt-C", "- center on selected unit"},
+  {"Alt-F", "- toggle full screen"},
+  {"Alt-G", "- toggle grab mouse"},
+  {"Alt-H", "- help menu"},
+  {"Alt-I", "- find idle worker"},
+  {"Alt-M", "- game menu"},
+  {"Ctrl-M", "- mute music"},
+  {"Ctrl-P", "- pause game"},
+  {"Q", "- select entire army"},
+  {"Alt-Q", "- quit to main menu"},
+  {"Alt-R", "- restart scenario"},
+  {"Ctrl-S", "- mute sound"},
+  {"Ctrl-T", "- track unit"},
+  {"Alt-V", "- next view port"},
+  {"Ctrl-V", "- previous view port"},
+  {"W", "- select all visible units of the same type as the currently selected one"},
+  {"WW", "- select all units of the same type as the currently selected one"},
+  {"Alt-X", "- quit game"},
+  {"+", "- increase game speed"},
+  {"-", "- decrease game speed"},
+  {"PAUSE", "- pause game"},
+  {"PRINT", "- make screen shot"},
+  {"ENTER", "- write a message"},
+  {"SPACE", "- goto last event"},
+  {"TAB", "- hide/unhide terrain"},
+  {"^", "- select nothing"},
+  {"#", "- select group"},
+  {"##", "- center on group"},
+  {".", "- find idle worker"},
+  {"Ctrl-#", "- define group"},
+  {"Shift-#", "- add to group"},
+  {"Alt-#", "- add to alternate group"},
+  {".", "- select next idle worker"},
+  {"F2-F4", "- recall map position"},
+  {"Shift F2-F4", "- save map postition"},
+  {"F5", "- game options"},
+  {"F7", "- sound options"},
+  {"F8", "- speed options"},
+  {"F9", "- preferences"},
+  {"F10", "- game menu"},
+  {"BACKSPACE", "- game menu"},
+  {"F11", "- save game"},
+  {"F12", "- load game"},
+}
+
+function RunKeystrokeHelpMenu()
+  local menu = WarGameMenu(panel(5))
+  menu:resize(352, 352)
+
+  local c = Container()
+  c:setOpaque(false)
+
+  for i=1,table.getn(keystrokes) do
+    local l = Label(keystrokes[i][1])
+    l:setFont(Fonts["game"])
+    l:adjustSize()
+    c:add(l, 0, 20 * (i - 1))
+    local l = Label(keystrokes[i][2])
+    l:setFont(Fonts["game"])
+    l:adjustSize()
+    c:add(l, 80, 20 * (i - 1))
+  end
+
+  local s = ScrollArea()
+  c:setSize(320 - s:getScrollbarWidth(), 20 * table.getn(keystrokes))
+  s:setBaseColor(dark)
+  s:setBackgroundColor(dark)
+  s:setForegroundColor(clear)
+  s:setSize(320, 216)
+  s:setContent(c)
+  menu:add(s, 16, 60)
+
+  menu:addLabel("Hotkey Menu", 352 / 2, 11)
+  menu:addFullButton("Previous Menu (~<Esc~>)", "escape",
+    (352 / 2) - (224 / 2), 352 - 40, function() menu:stop() end)
+
+  menu:run(false)
+end
+
+local tips = {
+  "Completing quests may reward you with technology points and unlock new maps.",
+  "You can select all of your currently visible units of the same type by holding down the CTRL key and selecting a unit or by \"double clicking\" on a unit.",
+  "The more workers you have collecting resources, the faster your economy will grow.",
+  "Building more than one barracks will let you train more units faster.",
+  "Use your workers to repair damaged buildings.",
+  "Explore your surroundings early in the game.",
+
+  "Keep all workers working. Use ALT-I to find idle workers.",
+  "You can make units automatically cast spells by selecting a unit, holding down CTRL and clicking on the spell icon.  CTRL click again to turn off.",
+
+  -- Shift tips
+  "You can give an unit an order which is executed after it finishes the current work, if you hold the SHIFT key.",
+  "You can give way points, if you press the SHIFT key, while you click right for the move command.",
+  "You can order a worker to build one building after the other, if you hold the SHIFT key, while you place the building.",
+  "You can build many of the same building, if you hold the ALT and SHIFT keys while you place the buildings.",
+
+  "Use CTRL-V or ALT-V to cycle through the viewport configuration, you can then monitor your base and lead an attack.",
+
+  "Attack a chest to open it.",
+  "Place a unit on top of a potion of healing or food item to heal it.",
+  "When a unit levels up, an exclamation point appears over it, and it can upgrade to a new unit type or acquire new abilities.",
+  "Slimes are harmless.",
+
+--  "Know a useful tip?  Then add it here!",
+}
+
+function RunTipsMenu()
+  local menu = WarGameMenu(panel(2))
+  menu:resize(288, 256)
+
+  menu:addLabel("Tips", 144, 11)
+
+  local l = MultiLineLabel()
+  l:setFont(Fonts["game"])
+  l:setSize(260, 128)
+  l:setLineWidth(260)
+  menu:add(l, 14, 35)
+
+  function l:prevTip()
+    wyr.preferences.TipNumber = wyr.preferences.TipNumber - 1
+    if (wyr.preferences.TipNumber < 1) then
+      wyr.preferences.TipNumber = table.getn(tips)
+    end
+    SavePreferences()
+  end
+  function l:nextTip()
+    wyr.preferences.TipNumber = wyr.preferences.TipNumber + 1
+    if (wyr.preferences.TipNumber > table.getn(tips)) then
+      wyr.preferences.TipNumber = 1
+    end
+    SavePreferences()
+  end
+  function l:updateCaption()
+    self:setCaption(tips[wyr.preferences.TipNumber])
+  end
+
+  if (wyr.preferences.TipNumber == 0) then
+    l:nextTip()
+  end
+  l:updateCaption()
+
+  local showtips = {}
+  showtips = menu:addImageCheckBox("Show tips when starting", 14, 256 - 75,
+    function()
+      wyr.preferences.ShowTips = showtips:isMarked()
+      SavePreferences()
+    end)
+  showtips:setMarked(wyr.preferences.ShowTips)
+
+  menu:addHalfButton("~!Next Tip", "n", 14, 256 - 40,
+    function() l:nextTip(); l:updateCaption() end)
+  menu:addHalfButton("~!Close", "c", 168, 256 - 40,
+    function() l:nextTip(); menu:stop() end)
+
+  menu:run(false)
+end
+

@@ -1,0 +1,11 @@
+-- Stratagus Map Presentation
+
+if (GrandStrategy == false) then
+	DefinePlayerTypes("person", "computer", "computer", "computer")
+else
+	DefinePlayerTypes("person", "person", "person", "person")
+end
+PresentMap("Eastern Mines", 1, 80, 80, 1)
+MapWorld = "Nidavellir"
+MapAttacker = 0
+MapDefender = 1

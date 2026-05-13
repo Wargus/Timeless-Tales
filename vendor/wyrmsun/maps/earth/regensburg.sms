@@ -1,0 +1,52 @@
+if (SyncRand(2) == 0) then
+	LoadTileModels("scripts/tilesets/conifer_forest_summer.lua")
+else
+	LoadTileModels("scripts/tilesets/conifer_forest_autumn.lua")
+end
+
+if (LoadedGame == false) then
+	GenerateRandomMap({
+		RockQuantity = "low",
+		TreeQuantity = "medium",
+		WaterQuantity = "low",
+		DarkLandQuantity = "medium",
+		RoughLandQuantity = "medium",
+		DarkRoughLandQuantity = "medium",
+		WorkerQuantity = 5,
+		PlayerCivilizations = {"teuton", "latin"},
+		PlayerBuildings = {
+			{"Farm", "Farm"},
+			{"Farm", "Farm", "Smithy", "Lumber Mill", "Guard Tower", "Guard Tower", "Guard Tower"}
+		},
+		WaterLayout = {
+			{ 0,  0,  0,  0,  0,  0,  0,  0},
+			{ 0,  0,  0,  0,  0,  0,  0,  0},
+			{ 0,  0,  0,  0,  0,  0,  0,  0},
+			{10, 10, 10, 10, 10, 10, 10, 10}
+		},
+		StartingLocationLayout = {
+			{-2, -2, -2, -2, -2, -2, -1, -1},
+			{-2, -2, -2, -2,  1, -2, -2, -1},
+			{-2, -2, -2, -2, -2, -2, -2, -1},
+			{-2, -2, -2, -2, -2, -2, -2, -2}
+		},
+--[[
+		RockGenerationAreas = {
+			{112, 128, 48, 80},
+			{0, 16, 32, 80}
+		}
+--]]
+	})
+end
+
+local town_units = {"unit-teuton-archer", "unit-teuton-archer", "unit-teuton-catapult"}
+
+local invader_units = {"unit-teuton-swordsman", "unit-teuton-swordsman", "unit-teuton-archer"}
+
+if (LoadedGame == false) then
+	-- create raft in the nearest coast tile to the Bavarian settlement
+	local nearest_coast = FindNearestTerrainFlagTile("coast", Players[0].StartPos.x, Players[0].StartPos.y)
+	if (nearest_coast ~= nil) then
+		unit = CreateUnit("unit-raft", 15, nearest_coast)
+	end
+end

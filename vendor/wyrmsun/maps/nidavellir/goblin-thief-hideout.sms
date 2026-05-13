@@ -1,0 +1,34 @@
+LoadTileModels("scripts/tilesets/cave.lua")
+
+CleanRawTiles()
+
+if (LoadedGame == false) then
+	GenerateCave(false, false)
+end
+
+if (GrandStrategyEventMap) then
+	SetPlayerData(0, "RaceName", GrandStrategyFaction.Civilization)
+	SetPlayerData(0, "Faction", GrandStrategyFaction.Name)
+	SetPlayerData(1, "RaceName", "goblin")
+	SetPlayerData(1, "Name", "Goblin Thieves")
+	SetPlayerData(0, "Resources", "gold", 0)
+	SetPlayerData(0, "Resources", "lumber", 0)
+	SetPlayerData(0, "Resources", "stone", 0)
+	SetAiType(0, "grand-strategy-battle")
+	SetAiType(1, "grand-strategy-battle")
+
+	CreateProvinceUnits(EventProvince.Name, 0)
+	
+	-- create heroes, if any
+	for i, unitName in ipairs(Units) do
+		if (IsHero(unitName)) then
+			if (GetProvinceHero(EventProvince.Name, GetUnitTypeData(unitName, "DefaultName"), "") == 2 and GetHeroUnitType(GetUnitTypeData(unitName, "DefaultName"), "") == unitName) then
+				unit = OldCreateUnit(unitName, 0, {Players[0].StartPos.x, Players[0].StartPos.y})
+			end
+		end
+	end
+
+	for i=1, (6 * BattalionMultiplier) do
+		unit = OldCreateUnit("unit-goblin-thief", 1, {Players[1].StartPos.x, Players[1].StartPos.y}) -- six thieves: too little?
+	end
+end

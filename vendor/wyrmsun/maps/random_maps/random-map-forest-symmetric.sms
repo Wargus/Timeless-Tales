@@ -1,0 +1,19 @@
+if (SyncRand(2) == 0) then
+	LoadTileModels("scripts/tilesets/conifer_forest_summer.lua")
+else
+	LoadTileModels("scripts/tilesets/conifer_forest_autumn.lua")
+end
+
+if (LoadedGame == false) then
+	GenerateRandomMap({
+		Symmetric = true,
+		MixedCivilizations = true,
+		RockQuantity = "low",
+		TreeQuantity = "medium",
+		WaterQuantity = "low",
+		DarkLandQuantity = "medium",
+		RoughLandQuantity = "medium",
+		DarkRoughLandQuantity = "medium",
+		WorkerQuantity = 5
+	})
+end

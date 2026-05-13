@@ -1,0 +1,7 @@
+LoadTileModels("scripts/tilesets/cave.lua")
+
+CleanRawTiles()
+
+if (LoadedGame == false) then
+	GenerateCave(true, true)
+end

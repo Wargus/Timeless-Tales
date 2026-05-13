@@ -1,0 +1,5 @@
+-- Stratagus Map Presentation
+
+DefinePlayerTypes("person","person","person","person")
+PresentMap("Random Swamp (Symmetric)", 4, 128, 128, 1)
+MapWorld = "Random"

@@ -1,0 +1,9 @@
+-- Stratagus Map Presentation
+
+if (CurrentQuest == "A Rocky Home") then
+	DefinePlayerTypes("person")
+else
+	DefinePlayerTypes("person", "person")
+end
+PresentMap("Svarinshaug", 1, 64, 64, 1)
+MapWorld = "Nidavellir"

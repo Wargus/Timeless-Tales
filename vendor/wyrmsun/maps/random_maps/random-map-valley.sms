@@ -1,0 +1,9 @@
+if (SyncRand(2) == 0) then
+	LoadTileModels("scripts/tilesets/conifer_forest_summer.lua")
+else
+	LoadTileModels("scripts/tilesets/conifer_forest_autumn.lua")
+end
+
+if (LoadedGame == false) then
+	GenerateValley(nil, "random", true)
+end

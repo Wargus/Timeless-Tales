@@ -1,0 +1,52 @@
+if (SyncRand(2) == 0) then
+	LoadTileModels("scripts/tilesets/conifer_forest_summer.lua")
+else
+	LoadTileModels("scripts/tilesets/conifer_forest_autumn.lua")
+end
+
+if (LoadedGame == false) then
+	GenerateRandomMap({
+		RockQuantity = "low",
+		TreeQuantity = "medium",
+		WaterQuantity = "low",
+		DarkLandQuantity = "medium",
+		RoughLandQuantity = "medium",
+		DarkRoughLandQuantity = "medium",
+		WorkerQuantity = 5,
+		PlayerCivilizations = {"teuton", "celt"},
+		PlayerBuildings = {
+			{"Farm", "Farm"},
+			{"Farm", "Farm", "Farm", "Farm"}
+		},
+		WaterLayout = {
+			{ 0,  0,  0,  8,  0,  0,  0,  0},
+			{ 0,  0,  0, 17, 10, 19,  0,  0},
+			{ 0,  0,  0, 18, 10, 16,  0,  0},
+			{ 0,  0,  0,  9,  0,  0,  0,  0},
+			{ 0,  0,  0,  8,  0,  0,  0,  0},
+			{ 0,  0,  0,  8,  0,  0,  0,  0}
+		},
+		StartingLocationLayout = {
+			{-2, -2, -1, -2, -2, -2, -2, -2},
+			{-1, -2, -2, -2, -2, -2, -2, -2},
+			{-1, -2, -2, -2, -2, -2, -2, -2},
+			{-1, -2, -2, -2,  1, -2, -2, -2},
+			{-1, -2, -2, -2, -2, -2, -2, -2},
+			{-1, -2, -2, -2, -2, -2, -2, -2}
+		},
+		RockGenerationAreas = {
+			{0, 16, 0, 16}
+		}
+	})
+end
+
+-- create rafts in the bottom-left margin of the river, in case the river bridge has been consumed by water
+local nearest_coast = FindNearestTerrainFlagTile("coast", 48, 80)
+if (nearest_coast ~= nil) then
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+end

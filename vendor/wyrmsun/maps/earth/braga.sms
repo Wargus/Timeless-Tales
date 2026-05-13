@@ -1,0 +1,42 @@
+if (SyncRand(2) == 0) then
+	LoadTileModels("scripts/tilesets/conifer_forest_summer.lua")
+else
+	LoadTileModels("scripts/tilesets/conifer_forest_autumn.lua")
+end
+
+if (LoadedGame == false) then
+	GenerateRandomMap({
+		RockQuantity = "low",
+		TreeQuantity = "medium",
+		WaterQuantity = "low",
+		RoughLandQuantity = "medium",
+		DarkLandQuantity = "medium",
+		DarkRoughLandQuantity = "medium",
+		WorkerQuantity = 5,
+		PlayerCivilizations = {"teuton", "latin"},
+		PlayerBuildings = {
+			{"Farm", "Farm"},
+			{"Farm", "Farm", "Smithy", "Lumber Mill", "Guard Tower", "Guard Tower", "Guard Tower"}
+		},
+		WaterLayout = {
+			{ 0,  0,  0,  0,  0,  0,  0,  0},
+			{ 0,  0,  0,  0,  0,  0,  0, 18},
+			{ 0,  0,  0,  0,  0,  0, 18, 16},
+			{ 0,  0,  0,  0,  0,  0,  8,  0},
+			{ 0,  0,  0,  0, 18, 11, 16,  0},
+			{10, 10, 10, 10, 16,  0,  0,  0}
+		},
+		StartingLocationLayout = {
+			{-1, -1, -1, -1, -1, -1, -1, -1},
+			{-1, -2, -2, -2, -2, -2, -2, -2},
+			{-2, -2, -2,  1, -2, -2, -2, -2},
+			{-2, -2, -2, -2, -2, -2, -2, -2},
+			{-2, -2, -2, -2, -2, -2, -2, -2},
+			{-2, -2, -2, -2, -2, -1, -1, -1}
+		},
+		RockGenerationAreas = {
+			{112, 128, 48, 80},
+			{0, 16, 32, 80}
+		}
+	})
+end

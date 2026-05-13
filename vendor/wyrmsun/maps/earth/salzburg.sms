@@ -1,0 +1,68 @@
+if (SyncRand(2) == 0) then
+	LoadTileModels("scripts/tilesets/conifer_forest_summer.lua")
+else
+	LoadTileModels("scripts/tilesets/conifer_forest_autumn.lua")
+end
+
+if (LoadedGame == false) then
+	GenerateRandomMap({
+		RockQuantity = "low",
+		TreeQuantity = "low", -- tree quantity is low to not overcrowd the map with trees, as a significant part of it is already covered by rocks
+		WaterQuantity = "low",
+		DarkLandQuantity = "medium",
+		RoughLandQuantity = "medium",
+		DarkRoughLandQuantity = "medium",
+		WorkerQuantity = 5,
+		PlayerCivilizations = {"latin", "celt", "celt", "celt", "teuton"},
+		PlayerBuildings = {
+			{"Farm", "Farm", "Lumber Mill", "Farm", "Smithy", "Farm"},
+			{},
+			{},
+			{},
+			{"Farm", "Farm"}
+		},
+		WaterLayout = {
+			{ 0,  8,  0,  0, 27,  0,  0,  0},
+			{ 0, 17, 19,  0,  0,  0,  0,  0},
+			{ 0,  0, 17, 11, 10, 10, 19,  0},
+			{ 0,  0,  0,  0,  0,  0, 17, 10},
+			{ 0,  0,  0,  0,  0,  0,  0,  0},
+			{ 0,  0,  0,  0,  0,  0,  0,  0},
+			{ 0,  0,  0,  0,  0,  0,  0,  0},
+			{ 0,  0,  0,  0,  0,  0,  0,  0}
+		},
+		StartingLocationLayout = {
+			{-2, -2, -1, -1, -2, -2, -2, -2},
+			{-2, -2, -2, -2, -2, -2, -2, -1},
+			{-2, -2, -2, -2, -2, -2, -2, -1},
+			{-1, -2, -2,  0, -2, -2, -2, -2},
+			{-1, -2, -2, -2, -2, -2, -2, -1},
+			{-1, -2, -2, -2, -2, -2, -2, -1},
+			{-1, -2, -2, -2, -2, -2, -2, -2},
+			{-1, -1, -1, -1, -1, -1, -1, -2}
+		},
+		RockGenerationAreas = {
+			{80, 128, 0, 32},
+			{64, 80, 16, 32},
+			{0, 16, 0, 48},
+			{16, 32, 48, 112},
+			{32, 48, 64, 96},
+			{48, 64, 80, 96},
+			{112, 128, 96, 112},
+			{96, 128, 112, 128}
+		}
+	})
+end
+
+CreateRoamingFog((Map.Info.MapWidth * Map.Info.MapHeight) / 4096)
+
+-- create rafts in the northern margin of the river, in case the river bridge has been consumed by water
+local nearest_coast = FindNearestTerrainFlagTile("coast", 59, 33)
+if (nearest_coast ~= nil) then
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+	unit = CreateUnit("unit-raft", 15, nearest_coast)
+end

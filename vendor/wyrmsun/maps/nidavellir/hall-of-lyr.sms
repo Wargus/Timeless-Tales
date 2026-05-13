@@ -1,0 +1,3 @@
+LoadTileModels("scripts/tilesets/dungeon.lua")
+
+GenerateRandomDungeon("dwarf", "", "random", "dwarf", "", "random", "dwarf", "Lyran Guards", 16, "", "", "", "", {}, "Lyran Citizens", 12)

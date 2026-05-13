@@ -1,0 +1,44 @@
+if (SyncRand(2) == 0) then
+	LoadTileModels("scripts/tilesets/conifer_forest_summer.lua")
+else
+	LoadTileModels("scripts/tilesets/conifer_forest_autumn.lua")
+end
+
+if (LoadedGame == false) then
+	GenerateRandomMap({
+		RockQuantity = "low",
+		TreeQuantity = "medium",
+		WaterQuantity = "low",
+		DarkLandQuantity = "medium",
+		RoughLandQuantity = "medium",
+		DarkRoughLandQuantity = "medium",
+		WorkerQuantity = 5,
+		PlayerCivilizations = {"teuton", "latin"},
+		PlayerBuildings = {
+			{"Farm", "Farm"},
+			{"Farm", "Farm", "Smithy", "Lumber Mill"}
+		},
+		WaterLayout = {
+			{ 0,  0,  0,  0,  8,  0,  0,  0},
+			{ 0,  0,  0,  0,  8,  0, 18, 10},
+			{ 0,  0,  0,  0,  8,  0,  8,  0},
+			{ 0,  0,  0,  0, 17, 10, 16,  0},
+			{ 0,  0,  0,  0,  0,  0,  0,  0}
+		},
+		StartingLocationLayout = {
+			{-1, -1, -2, -2, -2, -2, -2, -2},
+			{-1, -2, -2, -2, -2, -2, -2, -2},
+			{-1, -2, -2,  1, -2, -2, -2, -1},
+			{-1, -2, -2, -2, -2, -2, -2, -1},
+			{-1, -1, -2, -2, -2, -1, -1, -1}
+		}
+	})
+end
+
+if (LoadedGame == false) then
+	-- create rafts in the nearest coast tile to the Roman settlement
+	local nearest_coast = FindNearestTerrainFlagTile("coast", Players[1].StartPos.x, Players[1].StartPos.y)
+	if (nearest_coast ~= nil) then
+		unit = CreateUnit("unit-raft", 15, nearest_coast)
+	end
+end

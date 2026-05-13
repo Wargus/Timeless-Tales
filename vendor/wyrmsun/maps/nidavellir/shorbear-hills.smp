@@ -1,0 +1,7 @@
+-- Stratagus Map Presentation
+
+DefinePlayerTypes("person", "person", "person")
+PresentMap("Shorbear Hills", 3, 84, 80, 1)
+MapWorld = "Nidavellir"
+MapAttacker = 0
+MapDefender = 1

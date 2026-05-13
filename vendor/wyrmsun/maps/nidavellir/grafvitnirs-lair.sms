@@ -1,0 +1,27 @@
+LoadTileModels("scripts/tilesets/swamp.lua")
+
+if (LoadedGame == false) then
+	if (CurrentQuest == "The Binding of Grafvitnir") then
+		GenerateRandomMap({
+			MercenaryCamp = true,
+			RockQuantity = "medium",
+			TreeQuantity = "medium",
+			WaterQuantity = "medium",
+			RoughLandQuantity = "medium",
+			WorkerQuantity = 0,
+			NoFlyingCreeps = true,
+			NoTownHall = true,
+			PlayerCivilizations = {"dwarf", "kobold"}
+		})
+	else
+		GenerateRandomMap({
+			MercenaryCamp = true,
+			RockQuantity = "medium",
+			TreeQuantity = "low",
+			WaterQuantity = "high",
+			RoughLandQuantity = "medium",
+			WorkerQuantity = 5,
+			PlayerCivilizations = {"dwarf", "dwarf"}
+		})
+	end
+end

@@ -1,0 +1,30 @@
+LoadTileModels("scripts/tilesets/swamp.lua")
+
+if (LoadedGame == false) then
+	if (CurrentQuest == "The Necklace of the Brisings") then
+		GenerateRandomMap({
+			MercenaryCamp = true,
+			RockQuantity = "medium",
+			TreeQuantity = "low",
+			RoughLandQuantity = "high",
+			WaterQuantity = "high",
+			WorkerQuantity = 0,
+			NoFlyingCreeps = true, -- too early a mission to add such perils
+			PlayerCivilizations = {"dwarf", "dwarf"},
+			PlayerBuildings = {
+				{"Farm", "Farm"},
+				{"Barracks", "Farm", "Farm", "Watch Tower", "Watch Tower"}
+			}
+		})
+	else
+		GenerateRandomMap({
+			MercenaryCamp = true,
+			RockQuantity = "medium",
+			TreeQuantity = "low",
+			RoughLandQuantity = "high",
+			WaterQuantity = "high",
+			WorkerQuantity = 5,
+			PlayerCivilizations = {"dwarf", "dwarf"}
+		})
+	end
+end
