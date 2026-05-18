@@ -522,6 +522,114 @@ Load("scripts/human/units.lua")
 Load("scripts/orc/units.lua")
 Load("scripts/caanoo/units.lua")
 
+-- Keep spell vectors defined after all spells and unit files have loaded.
+-- The engine expects CanCastSpell to be sized for the complete spell table.
+local function DefineUnitCanCastSpells(unitType, spells)
+  DefineUnitType(unitType, {CanCastSpell = spells})
+end
+
+DefineUnitCanCastSpells("unit-mage", {
+  "spell-fireball",
+  "spell-slow",
+  "spell-flame-shield",
+  "spell-invisibility",
+  "spell-polymorph",
+  "spell-blizzard"})
+DefineUnitCanCastSpells("unit-white-mage", {
+  "spell-fireball",
+  "spell-slow",
+  "spell-flame-shield",
+  "spell-invisibility",
+  "spell-polymorph",
+  "spell-blizzard"})
+DefineUnitCanCastSpells("unit-paladin", {
+  "spell-holy-vision",
+  "spell-healing",
+  "spell-exorcism"})
+DefineUnitCanCastSpells("unit-knight-rider", {
+  "spell-holy-vision",
+  "spell-healing",
+  "spell-exorcism"})
+DefineUnitCanCastSpells("unit-man-of-light", {
+  "spell-holy-vision",
+  "spell-healing",
+  "spell-exorcism"})
+DefineUnitCanCastSpells("unit-dwarves", {"spell-suicide-bomber"})
+
+DefineUnitCanCastSpells("unit-death-knight", {
+  "spell-death-coil",
+  "spell-haste",
+  "spell-raise-dead",
+  "spell-whirlwind",
+  "spell-unholy-armor",
+  "spell-death-and-decay"})
+DefineUnitCanCastSpells("unit-evil-knight", {
+  "spell-death-coil",
+  "spell-haste",
+  "spell-raise-dead",
+  "spell-whirlwind",
+  "spell-unholy-armor",
+  "spell-death-and-decay"})
+DefineUnitCanCastSpells("unit-ice-bringer", {
+  "spell-death-coil",
+  "spell-haste",
+  "spell-raise-dead",
+  "spell-whirlwind",
+  "spell-unholy-armor",
+  "spell-death-and-decay"})
+DefineUnitCanCastSpells("unit-ogre-mage", {
+  "spell-eye-of-vision",
+  "spell-runes",
+  "spell-bloodlust"})
+DefineUnitCanCastSpells("unit-fad-man", {
+  "spell-eye-of-vision",
+  "spell-runes",
+  "spell-bloodlust"})
+DefineUnitCanCastSpells("unit-goblin-sappers", {"spell-suicide-bomber"})
+DefineUnitCanCastSpells("unit-double-head", {
+  "spell-eye-of-vision-double-head",
+  "spell-runes-double-head",
+  "spell-bloodlust-double-head"})
+
+DefineUnitCanCastSpells("unit-order-paladin", {
+  "spell-holy-vision",
+  "spell-aid",
+  "spell-exorcism"})
+DefineUnitCanCastSpells("unit-human-adventurer", {"spell-buildpoint-townhall"})
+DefineUnitCanCastSpells("unit-caanoo-wiseskeleton", {
+  "spell-unit-peon",
+  "spell-unit-grunt",
+  "spell-unit-axethrower",
+  "spell-unit-catapult",
+  "spell-unit-ogre",
+  "spell-unit-death-knight",
+  "spell-unit-ogre-mage",
+  "spell-unit-dragon",
+  "spell-unit-quick-blade",
+  "spell-unit-goblin-sappers",
+  "spell-unit-nomad",
+  "spell-unit-berserker",
+  "spell-unit-skeleton"})
+DefineUnitCanCastSpells("unit-caanoo-wiseman", {
+  "spell-unit-footman",
+  "spell-unit-archer",
+  "spell-unit-ballista",
+  "spell-unit-knight",
+  "spell-unit-female-hero",
+  "spell-unit-knight-rider",
+  "spell-unit-peasant",
+  "spell-unit-ranger",
+  "spell-unit-yeoman",
+  "spell-unit-gryphon-rider",
+  "spell-unit-fad-man",
+  "spell-unit-arthor-literios",
+  "spell-unit-sharp-axe",
+  "spell-unit-mage",
+  "spell-unit-paladin",
+  "spell-unit-attack-peasant",
+  "spell-unit-dwarves"})
+DefineUnitCanCastSpells("unit-caanoo-oathbreaker", {"spell-buildpoint-townhall"})
+
 -- Hardcoded unit-types, moved from Stratagus to games
 UnitTypeHumanWall = UnitTypeByIdent("unit-human-wall");
 UnitTypeOrcWall = UnitTypeByIdent("unit-orc-wall");
