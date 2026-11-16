@@ -25,19 +25,8 @@
 --      Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 --
 
-GameDefinition["Briefing"]["Title"] = "Desert Survival"
-GameDefinition["Briefing"]["Objectives"] = nil
-GameDefinition["Map"]["Name"] = "3. Desert Survival"
-GameDefinition["Map"]["Type"] = ".smp"
-GameDefinition["Map"]["Path"] = "campaigns/human-ftm/"
+-- Map information; the briefing lives in the campaign menu entry
+-- (scripts/lists/campaigns/For the Motherland (Alliance)/).
 
-if (GameDefinition["Briefing"]["Active"] == true) then
-	local menu = MenuScreen()
-	BriefingAction("Backdrop", "ui/Credits_background.png", menu)
-	BundleAction("Scrolling Text", nil, GameDefinition["Map"]["Path"] .. GameDefinition["Map"]["Name"] .. ".txt")
-elseif (GameDefinition["Briefing"]["Active"] == 1) then
-	BriefingAction("Start")
-else
-	DefinePlayerTypes("computer", "computer", "computer", "nobody", "nobody", "computer", "computer", "nobody", "computer", "person", "computer", "nobody", "nobody", "computer", "computer")
+DefinePlayerTypes("computer", "computer", "computer", "nobody", "nobody", "computer", "computer", "nobody", "computer", "person", "computer", "nobody", "nobody", "computer", "computer")
 	PresentMap("Desert Survival", 4, 96, 96, 2)
-end

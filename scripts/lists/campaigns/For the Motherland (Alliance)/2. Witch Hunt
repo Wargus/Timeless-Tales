@@ -1,1 +1,15 @@
-Load("campaigns/human-ftm/2. Witch Hunt.smp")
+-- Briefing driver for the "Witch Hunt" mission; starts campaigns/human-ftm/2. Witch Hunt.smp
+GameDefinition["Briefing"]["Title"] = "Witch Hunt"
+GameDefinition["Briefing"]["Objectives"] = nil
+GameDefinition["Map"]["Name"] = "2. Witch Hunt"
+GameDefinition["Map"]["File"] = "2. Witch Hunt"
+GameDefinition["Map"]["Type"] = ""
+GameDefinition["Map"]["Path"] = "scripts/lists/campaigns/For the Motherland (Alliance)/"
+
+if (GameDefinition["Briefing"]["Active"] == true) then
+	local menu = MenuScreen()
+	BriefingAction("Backdrop", "ui/Credits_background.png", menu)
+	BundleAction("Scrolling Text", nil, "campaigns/human-ftm/2. Witch Hunt.txt")
+elseif (GameDefinition["Briefing"]["Active"] == 1) then
+	BriefingAction("Start", "campaigns/human-ftm/2. Witch Hunt.smp")
+end

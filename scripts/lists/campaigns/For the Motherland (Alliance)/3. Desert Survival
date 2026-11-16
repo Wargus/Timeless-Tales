@@ -1,1 +1,15 @@
-Load("campaigns/human-ftm/3. Desert Survival.smp")
+-- Briefing driver for the "Desert Survival" mission; starts campaigns/human-ftm/3. Desert Survival.smp
+GameDefinition["Briefing"]["Title"] = "Desert Survival"
+GameDefinition["Briefing"]["Objectives"] = nil
+GameDefinition["Map"]["Name"] = "3. Desert Survival"
+GameDefinition["Map"]["File"] = "3. Desert Survival"
+GameDefinition["Map"]["Type"] = ""
+GameDefinition["Map"]["Path"] = "scripts/lists/campaigns/For the Motherland (Alliance)/"
+
+if (GameDefinition["Briefing"]["Active"] == true) then
+	local menu = MenuScreen()
+	BriefingAction("Backdrop", "ui/Credits_background.png", menu)
+	BundleAction("Scrolling Text", nil, "campaigns/human-ftm/3. Desert Survival.txt")
+elseif (GameDefinition["Briefing"]["Active"] == 1) then
+	BriefingAction("Start", "campaigns/human-ftm/3. Desert Survival.smp")
+end

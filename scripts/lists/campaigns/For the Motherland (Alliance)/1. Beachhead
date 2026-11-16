@@ -1,1 +1,15 @@
-Load("campaigns/human-ftm/1. Tutorial.smp")
+-- Briefing driver for the "Beachhead" mission; starts campaigns/human-ftm/1. Tutorial.smp
+GameDefinition["Briefing"]["Title"] = "Beachhead"
+GameDefinition["Briefing"]["Objectives"] = nil
+GameDefinition["Map"]["Name"] = "1. Tutorial"
+GameDefinition["Map"]["File"] = "1. Beachhead"
+GameDefinition["Map"]["Type"] = ""
+GameDefinition["Map"]["Path"] = "scripts/lists/campaigns/For the Motherland (Alliance)/"
+
+if (GameDefinition["Briefing"]["Active"] == true) then
+	local menu = MenuScreen()
+	BriefingAction("Backdrop", "ui/Credits_background.png", menu)
+	BundleAction("Scrolling Text", nil, "campaigns/human-ftm/1. Tutorial.txt")
+elseif (GameDefinition["Briefing"]["Active"] == 1) then
+	BriefingAction("Start", "campaigns/human-ftm/1. Tutorial.smp")
+end

@@ -137,6 +137,13 @@ function AiRedRibbon_Define_Cost_2014(i, gold, wood, oil)
 	end
 end
 ]]
+-- Legacy compatibility stub: older campaign map scripts (e.g. campaigns/orc-ftm/level01o.sms)
+-- still emit these definition calls. The global ftm_unit/ftm_origin/ftm_cost tables they used
+-- to fill are gone (superseded by the per-player UnitDatabase), so this is a no-op.
+-- Without the stub the map script aborts with "attempt to call a nil value".
+function AiRedRibbon_Define_Unit_2014(i, unit, origin, category, class, rank, gold, wood, oil, x, y)
+end
+
 function AiRedRibbon_Auto_Origin_2014(player, target, x, y, class)
 	-- Class will be something like ground, air, etcetera.
 	for i=1, 15 do

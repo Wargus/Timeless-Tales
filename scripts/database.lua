@@ -190,13 +190,19 @@ function CharacterAction(name, action, skin, mood)
 			elseif (action == "Sync") then
 				mood = string.lower(mood)
 				mood = SyncIndex(name, mood)
-				if (Character[name][skin][mood]["Mouth"] ~= nil) then
+				if ((Character[name][skin] == nil) or (Character[name][skin][mood] == nil) or (Character[name][skin][mood]["Mouth"] == nil)) then
+					-- The character has no lip-sync art for this mood, fall back to the static pose art.
+					mood = Character[name]["Mood"]
+					if ((Character[name][skin] ~= nil) and (Character[name][skin][mood] ~= nil) and (Character[name][skin][mood]["Mouth"] ~= nil)) then
+						character_mouth = CGraphic:New("characters/" .. name .. "/" .. Character[name][skin][mood]["Mouth"])
+					end
+				else
 					character_mouth = CGraphic:New("characters/" .. name .. "/" .. Character[name][skin][mood]["Mouth"])
 				end
 			end
-			character_eyes:Load()
-			character_brows:Load()
-			character_mouth:Load()
+			if (character_eyes ~= nil) then character_eyes:Load() end
+			if (character_brows ~= nil) then character_brows:Load() end
+			if (character_mouth ~= nil) then character_mouth:Load() end
 		end
 		if (Character[name][skin]["Scale"] ~= 1) then
 			if ((Character[name]["Graphic"][Character[name][skin]["Skin"]] == nil) or (Character[name]["Graphic"][Character[name][skin]["Skin"]] == 1)) then
@@ -659,13 +665,15 @@ function BriefingAction(action, text, menu, x, y, z)
 						if (((SyncIndex(name, syncchar, "a", "b", "c", "d", "e", "f") == true) or (SyncIndex(name, syncchar, "g", "h", "i", "j", "k", "l") == true) or
 							(SyncIndex(name, syncchar, "m", "n", "o", "p", "q", "r") == true) or (SyncIndex(name, syncchar, "s", "t", "u", "v", "w", "x") == true) or
 							(SyncIndex(name, syncchar, "y", "z", " ", "") == true)) and (syncchar ~= "+")) then
-							charmouthWidget:setVisible(false)
-							if (syncchar ~= "") then
-								CharacterAction(GameDefinition["Briefing"]["Character"], "Sync", Character[GameDefinition["Briefing"]["Character"]]["Skin"], syncchar)
-							else
-								CharacterAction(GameDefinition["Briefing"]["Character"], "Pose", Character[GameDefinition["Briefing"]["Character"]]["Skin"], Character[GameDefinition["Briefing"]["Character"]]["Mood"])
+							if ((charmouthWidget ~= nil) and (GameDefinition["Briefing"]["Character"] ~= nil) and (Character[GameDefinition["Briefing"]["Character"]] ~= nil)) then
+								charmouthWidget:setVisible(false)
+								if (syncchar ~= "") then
+									CharacterAction(GameDefinition["Briefing"]["Character"], "Sync", Character[GameDefinition["Briefing"]["Character"]]["Skin"], syncchar)
+								else
+									CharacterAction(GameDefinition["Briefing"]["Character"], "Pose", Character[GameDefinition["Briefing"]["Character"]]["Skin"], Character[GameDefinition["Briefing"]["Character"]]["Mood"])
+								end
+								menu:add(charmouthWidget, GameDefinition["Briefing"]["X"] + GameDefinition["Briefing"]["Width"] - 450, GameDefinition["Briefing"]["Y"] + 10)
 							end
-							menu:add(charmouthWidget, GameDefinition["Briefing"]["X"] + GameDefinition["Briefing"]["Width"] - 450, GameDefinition["Briefing"]["Y"] + 10)
 						end
 						synccharold = syncchar
 					end
@@ -676,8 +684,8 @@ function BriefingAction(action, text, menu, x, y, z)
 						screentext = screentext .. screenchar		
 						menu:addMultiLineLabel(screentext, GameDefinition["Briefing"]["X"] + 70 * GameDefinition["Briefing"]["Width"] / 640, GameDefinition["Briefing"]["Y"] + 80 * GameDefinition["Briefing"]["Height"] / 480, Fonts["large"], false, 320)
 					end
-					if (text == "") then text = nil end
 					text = string.sub(text, 2)
+					if (text == "") then text = nil end
 				end
 			end
 			if ((wait < -100) and (text == nil) and (GameDefinition["Briefing"]["Active"] ~= true)) then
@@ -686,9 +694,11 @@ function BriefingAction(action, text, menu, x, y, z)
 				wait = nil
 			elseif (wait == 0) then
 				if ((string.len(x) == 0) and ((text == nil) or (string.len(text) == 0))) then
-					charmouthWidget:setVisible(false)
-					CharacterAction(GameDefinition["Briefing"]["Character"], "Pose", Character[GameDefinition["Briefing"]["Character"]]["Skin"], Character[GameDefinition["Briefing"]["Character"]]["Mood"])
-					menu:add(charmouthWidget, GameDefinition["Briefing"]["X"] + GameDefinition["Briefing"]["Width"] - 450, GameDefinition["Briefing"]["Y"] + 10)
+					if ((charmouthWidget ~= nil) and (GameDefinition["Briefing"]["Character"] ~= nil) and (Character[GameDefinition["Briefing"]["Character"]] ~= nil)) then
+						charmouthWidget:setVisible(false)
+						CharacterAction(GameDefinition["Briefing"]["Character"], "Pose", Character[GameDefinition["Briefing"]["Character"]]["Skin"], Character[GameDefinition["Briefing"]["Character"]]["Mood"])
+						menu:add(charmouthWidget, GameDefinition["Briefing"]["X"] + GameDefinition["Briefing"]["Width"] - 450, GameDefinition["Briefing"]["Y"] + 10)
+					end
 					wait = -1
 				elseif ((string.len(x) > 0) or (string.len(text) > 0)) then
 					wait = 2
