@@ -25,6 +25,10 @@
 --      Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 --
 
+GameDefinition["Map"]["File"] = "DP1D2"
+GameDefinition["Map"]["Type"] = ".lua"
+GameDefinition["Map"]["Path"] = "scripts/lists/campaigns/Adventure/"
+
 if (GameDefinition["Briefing"]["Active"] == true) then
 	GameDefinition["Briefing"]["Backdrop"] = "magickomplex"
 	BundleAction("Chat", "Drago Payne", "What's all this?")

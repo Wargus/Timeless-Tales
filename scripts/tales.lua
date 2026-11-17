@@ -258,8 +258,16 @@ function GameDefinitionSetup(name, version, revision, map, topography)
 		GameDefinition["Map"]["Name"] = "None"
 		GameDefinition["Map"]["Topography"] = "None"
 		GameDefinition["Briefing"]["Active"] = true
-		GameDefinition["Briefing"]["Width"] = 800
-		GameDefinition["Briefing"]["Height"] = 600
+		-- Clamp the briefing box to the video mode so briefing widgets and buttons
+		-- (positioned relative to Width/Height) stay on screen on small resolutions.
+		local briefingWidth = 800
+		local briefingHeight = 600
+		if (Video ~= nil) then
+			if (Video.Width < briefingWidth) then briefingWidth = Video.Width end
+			if (Video.Height < briefingHeight) then briefingHeight = Video.Height end
+		end
+		GameDefinition["Briefing"]["Width"] = briefingWidth
+		GameDefinition["Briefing"]["Height"] = briefingHeight
 		GameDefinition["Briefing"]["Objectives"] = {"No", "Objectives"}
 		GameDefinition["Briefing"]["Title"] = "No Title"
 		GameDefinition["Briefing"]["Character"] = " "

@@ -509,10 +509,18 @@ function BriefingAction(action, text, menu, x, y, z)
 	elseif (action == "Terminate") then
 		GameDefinition["Briefing"]["Active"] = true
 	elseif (action == "Start") then
-		--GameDefinition["Briefing"]["Active"] = false
-		RunMap(text, nil, nil, nil, false)
-		BriefingAction("Increment")
-		Load(GameDefinition["Map"]["Path"] .. GameDefinition["Map"]["File"] .. GameDefinition["Map"]["Type"])
+		local map = text
+		if (map == nil and GameDefinition["Map"]["File"] ~= nil) then
+			map = GameDefinition["Map"]["Path"] .. GameDefinition["Map"]["File"] .. GameDefinition["Map"]["Type"]
+		end
+		if (map ~= nil) then
+			RunMap(map, nil, nil, nil, false)
+		end
+		-- The scenario has ended (victory, defeat, quit to menu or exit): stop the
+		-- briefing chain so control returns to the menus. Re-running Load(self)
+		-- here used to restart the scenario, because GameDefinitionSetup
+		-- re-initialises Briefing.Active to true at every map start.
+		BriefingAction("Terminate")
 	elseif (action == "Character") then
 		local charx = GameDefinition["Briefing"]["X"] + GameDefinition["Briefing"]["Width"] - 450
 		local chary = GameDefinition["Briefing"]["Y"] + 10
